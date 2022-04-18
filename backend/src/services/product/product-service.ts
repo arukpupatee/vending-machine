@@ -2,6 +2,7 @@ import { AppDataSource } from '../../data-source';
 import { isExistValue } from '../../utils/helpers';
 import { Product } from './models/Product';
 import { Product as ProductEntity } from '../../entities/Product';
+import { ApplicationError } from '../../errors/application-error';
 
 class ProductService {
   static _instance: ProductService | undefined;
@@ -24,13 +25,11 @@ class ProductService {
   }
 
   async get(id: string): Promise<Product> {
-    const product = new Product({
-      id,
-      name: `Product${id}`,
-      imageUrl: 'https://place-hold.it/500x500',
-      price: 100,
-      quantity: 10,
-    });
+    const entity = await AppDataSource.getRepository(ProductEntity).findOne({ where: { id } });
+
+    if (!isExistValue(entity)) throw ApplicationError.create('Product not found');
+
+    const product = new Product(entity);
 
     return product;
   }
