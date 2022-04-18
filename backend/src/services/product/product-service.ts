@@ -33,6 +33,17 @@ class ProductService {
 
     return product;
   }
+
+  async decreaseQuantity(id: string): Promise<Product> {
+    const product = await this.get(id);
+
+    if (product.quantity === 0)
+      throw ApplicationError.create('Unable to decrease product quantity, quantity already 0');
+
+    await AppDataSource.getRepository(ProductEntity).update(id, { quantity: product.quantity - 1 });
+
+    return this.get(id);
+  }
 }
 
 export const productService = ProductService.instance;
