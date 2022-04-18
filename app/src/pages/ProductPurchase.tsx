@@ -33,7 +33,11 @@ export default function ProductPurchase() {
             <Typography sx={{ textAlign: 'center' }}>Remaining: {product.quantity}</Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: 'center' }}>
-            <Button variant="contained" disabled={!product.isAvailable}>
+            <Button
+              variant="contained"
+              disabled={!product.isAvailable}
+              href={`/products/${product.id}/receive`}
+            >
               Make mock payment
             </Button>
           </CardActions>
