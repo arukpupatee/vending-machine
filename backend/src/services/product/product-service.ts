@@ -1,6 +1,7 @@
-import { range } from 'ramda';
+import { AppDataSource } from '../../data-source';
 import { isExistValue } from '../../utils/helpers';
 import { Product } from './models/Product';
+import { Product as ProductEntity } from '../../entities/Product';
 
 class ProductService {
   static _instance: ProductService | undefined;
@@ -16,16 +17,8 @@ class ProductService {
   }
 
   async list(): Promise<Product[]> {
-    const products = range(1, 14)
-      .map((n) => ({
-        id: `${n}`,
-        name: `Product${n}`,
-        imageUrl: 'https://place-hold.it/500x500',
-        price: n * 10,
-        quantity: n === 5 ? 0 : 10,
-        isAvailable: n === 5 ? false : true,
-      }))
-      .map((data) => new Product(data));
+    const entities = await AppDataSource.getRepository(ProductEntity).find();
+    const products = entities.map((entity) => new Product(entity));
 
     return products;
   }
