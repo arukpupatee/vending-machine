@@ -24,6 +24,17 @@ class ProductController {
       return next(error);
     }
   }
+
+  async get(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const product = await productService.get(id);
+
+      return res.json({ product });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export const productController = ProductController.instance;

@@ -29,6 +29,18 @@ class ProductService {
 
     return products;
   }
+
+  async get(id: string): Promise<Product> {
+    const product = new Product({
+      id,
+      name: `Product${id}`,
+      imageUrl: 'https://place-hold.it/500x500',
+      price: 100,
+      quantity: 10,
+    });
+
+    return product;
+  }
 }
 
 export const productService = ProductService.instance;
