@@ -22,3 +22,21 @@ export const useListProducts = (): { products: Product[] } => {
 
   return { products };
 };
+
+export const useGetProduct = (id: string): { product?: Product } => {
+  const [product, setProduct] = useState<Product>();
+
+  useEffect(() => {
+    const product = new Product({
+      id,
+      name: `Product${id}`,
+      imageUrl: 'https://place-hold.it/500x500',
+      price: 100,
+      quantity: 10
+    });
+
+    setProduct(product);
+  }, [id]);
+
+  return { product };
+};
