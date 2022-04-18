@@ -4,9 +4,13 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { errorHandler } from './middlewares/error-handler';
 import apiRouter from './api';
+import { AppDataSource } from './data-soruce';
 
 // Env config
 dotenv.config();
+
+// TypeORM initialize
+AppDataSource.initialize();
 
 // Express App
 const app = express();
