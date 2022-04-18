@@ -1,6 +1,7 @@
 import express from 'express';
 import { createServer } from 'http';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { errorHandler } from './middlewares/error-handler';
 import apiRouter from './api';
 
@@ -12,6 +13,7 @@ const app = express();
 const server = createServer(app);
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
