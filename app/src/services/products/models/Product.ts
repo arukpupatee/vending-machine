@@ -1,3 +1,5 @@
+import { ProductResponse } from '../responses/ProductResponse';
+
 export class Product {
   id: string;
 
