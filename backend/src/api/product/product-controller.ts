@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { isExistValue } from '../../utils/helpers';
-import { productService } from './product-service';
+import { productService } from '../../services/product/product-service';
 
 class ProductController {
   static _instance: ProductController | undefined;
@@ -13,6 +13,16 @@ class ProductController {
     }
 
     return this._instance;
+  }
+
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const products = await productService.list();
+
+      return res.json({ products });
+    } catch (error) {
+      return next(error);
+    }
   }
 }
 
