@@ -1,4 +1,8 @@
-version: '3.1'
+version: '3.8'
+
+networks:
+  basenet:
+    driver: bridge
 
 services:
   db:
@@ -12,4 +16,35 @@ services:
       POSTGRES_DB: vending-machine
     ports:
       - 5432:5432
+    networks:
+      - basenet
 
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - basenet
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: local
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: admin
+      DB_PASSWORD: password
+      DB_NAME: vending-machine
+
+  app:
+    build: ./app
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - basenet
+    depends_on:
+      - backend
+    environment:
+      BACKEND_API_URL: http://localhost:3000/api

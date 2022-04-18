@@ -13,7 +13,9 @@ class ProductAPI {
 
   static get instance(): ProductAPI {
     if (!isExistValue(this._instance)) {
-      const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_BACKEND_API_URL });
+      const axiosInstance = axios.create({
+        baseURL: process.env.REACT_APP_BACKEND_API_URL || 'http://localhost:3000/api'
+      });
       this._instance = new ProductAPI(axiosInstance);
 
       return this._instance;

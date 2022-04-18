@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "yarn ts-node src/server.ts",
     "develop": "yarn ts-node-dev src/server.ts --watch src",
     "develop:debug": "yarn ts-node-dev --inspect -- src/server.ts --watch src",
     "tsc": "./node_modules/.bin/tsc",

@@ -18,7 +18,7 @@ class ProductService {
   }
 
   async list(): Promise<Product[]> {
-    const entities = await AppDataSource.getRepository(ProductEntity).find();
+    const entities = await AppDataSource.getRepository(ProductEntity).find({ order: { name: 'asc' } });
     const products = entities.map((entity) => new Product(entity));
 
     return products;
