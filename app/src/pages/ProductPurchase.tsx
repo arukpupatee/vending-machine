@@ -8,14 +8,24 @@ import {
   Grid,
   Typography
 } from '@mui/material';
-import { useParams } from 'react-router';
-import { useGetProduct } from '../services/products/productHooks';
+import { useNavigate, useParams } from 'react-router';
+import { useGetProduct, usePurchaseProduct } from '../services/products/productHooks';
 
 export default function ProductPurchase() {
+  const navigate = useNavigate();
   const { id = '' } = useParams();
   const { product } = useGetProduct(id);
+  const { purchaseProductFunction } = usePurchaseProduct(id);
 
   if (!product) return <div>Not Found</div>;
+
+  const handleMakePayment = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    await purchaseProductFunction();
+
+    navigate('/products/:id/receive');
+  };
 
   return (
     <Container fixed>
@@ -33,11 +43,7 @@ export default function ProductPurchase() {
             <Typography sx={{ textAlign: 'center' }}>Remaining: {product.quantity}</Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: 'center' }}>
-            <Button
-              variant="contained"
-              disabled={!product.isAvailable}
-              href={`/products/${product.id}/receive`}
-            >
+            <Button variant="contained" disabled={!product.isAvailable} onClick={handleMakePayment}>
               Make mock payment
             </Button>
           </CardActions>

@@ -29,3 +29,12 @@ export const useGetProduct = (id: string): { product?: Product } => {
 
   return { product };
 };
+
+export const usePurchaseProduct = (
+  id: string
+): { purchaseProductFunction: () => Promise<Product> } => {
+  return {
+    purchaseProductFunction: () =>
+      productAPI.purchase(id).then((productResponse) => new Product(productResponse))
+  };
+};

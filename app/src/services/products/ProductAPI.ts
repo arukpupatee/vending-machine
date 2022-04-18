@@ -33,6 +33,14 @@ class ProductAPI {
 
     return result.data.product;
   }
+
+  async purchase(id: string): Promise<ProductResponse> {
+    const result = await this.axiosInstance.post<{ product: ProductResponse }>(
+      `/products/${id}/purchase`
+    );
+
+    return result.data.product;
+  }
 }
 
 export const productAPI = ProductAPI.instance;
