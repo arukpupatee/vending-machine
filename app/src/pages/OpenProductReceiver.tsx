@@ -5,7 +5,9 @@ export default function OpenProductReceiver() {
     <Container fixed>
       <Grid container justifyContent="center">
         <Typography variant="h1">Please receive item below</Typography>
-        <Button variant="contained">Make mock receive item</Button>
+        <Button variant="contained" href="/products">
+          Make mock receive item
+        </Button>
       </Grid>
     </Container>
   );
