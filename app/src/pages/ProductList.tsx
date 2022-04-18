@@ -35,7 +35,11 @@ export default function ProductList() {
                 <Typography sx={{ textAlign: 'center' }}>Remaining: {product.quantity}</Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: 'center' }}>
-                <Button variant="contained" disabled={!product.isAvailable}>
+                <Button
+                  variant="contained"
+                  disabled={!product.isAvailable}
+                  href={`/products/${product.id}/purchase`}
+                >
                   Buy
                 </Button>
               </CardActions>
