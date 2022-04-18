@@ -27,6 +27,12 @@ class ProductAPI {
 
     return result.data.products;
   }
+
+  async get(id: string): Promise<ProductResponse> {
+    const result = await this.axiosInstance.get<{ product: ProductResponse }>(`/products/${id}`);
+
+    return result.data.product;
+  }
 }
 
 export const productAPI = ProductAPI.instance;
