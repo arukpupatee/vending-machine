@@ -18,7 +18,10 @@
 
 ## How to test
 
-Coming soon
+- Run test script
+  ```zsh
+  . ./test-script.sh
+  ```
 
 ## Features
 
