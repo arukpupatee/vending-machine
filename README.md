@@ -10,9 +10,9 @@
   ```zsh
   docker compose up
   ```
-- Generate example data (Only first time setup)
+- Generate example data
   ```zsh
-  cd backend && yarn migration:run
+  . ./generate-data-script.sh
   ```
 - Access vending machine app at http://localhost:8080
 
